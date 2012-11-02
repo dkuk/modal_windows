@@ -5,7 +5,6 @@ jQuery(document).ready(function(){
     link.width = jQuery(this).outerWidth();
     link.href = jQuery(this).attr("href")
     cur_window = jQuery("#modal-"+jQuery(this).attr("id"));
-    
     margin = 5;
 
     hide_modals();
@@ -17,13 +16,13 @@ jQuery(document).ready(function(){
     }
     cur_window.css("top", link.top);
 
-    if ( (jQuery(document).width() < cur_window.width()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
+    if ( (jQuery(document).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
       borders_w = cur_window.outerWidth()-cur_window.width()
       new_w = (link.left > jQuery(document).width()-(link.left+link.width+margin*2)) ? link.left-borders_w : jQuery(document).width()-(link.left+link.width+borders_w);
       cur_window.width(new_w-margin*2);
     }
 
-    if( jQuery(document).width() >= cur_window.width()+link.left+link.width+margin) {
+    if( jQuery(document).width() >= cur_window.outerWidth()+link.left+link.width+margin) {
       cur_window.css("left", link.left+link.width+margin);
     }
     else {
@@ -34,13 +33,18 @@ jQuery(document).ready(function(){
     return false;
   })
 
+
   jQuery("div.modal_window").mouseleave(function(){
     jQuery(this).hide();
   })
 
+
   jQuery("a.close_modal_window").click(function(){
     jQuery(this).parent().hide();
   })
+  
+
+  jQuery("div.modal_window, div.permanent_modal_window").insertBefore(jQuery("div").first());
 
 });
 
