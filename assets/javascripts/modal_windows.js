@@ -7,7 +7,7 @@ jQuery(document).ready(function(){
     cur_window = jQuery("#modal-"+jQuery(this).attr("id"));
     margin = 5;
 
-    hide_modals();
+    jQuery("div.modal_window").hide();
 
     if (cur_window.text() == ""){
       jQuery.ajaxSetup({ async: false});
@@ -39,17 +39,24 @@ jQuery(document).ready(function(){
   })
 
 
+  // jQuery("div.modal_window").click(function(){
+  //   return false;
+  // })
+
+
   jQuery("a.close_modal_window").click(function(){
     jQuery(this).parent().hide();
   })
-  
+
 
   jQuery("div.modal_window, div.permanent_modal_window").insertBefore(jQuery("div").first());
 
 });
 
-jQuery(window).click(hide_modals);
+jQuery(window).click(function (event){
+  if( !jQuery(event.target).hasClass("modal_window") && jQuery(event.target).parents("div.modal_window").length == 0){
+    jQuery("div.modal_window").hide()
+  }
+});
 
-function hide_modals(){
-  jQuery("div.modal_window").hide()
-}
+
