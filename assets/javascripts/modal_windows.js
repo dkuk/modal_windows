@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 
-  jQuery("a.link_to_modal").click(function(){    
+  jQuery(document.body).on('click', 'a.link_to_modal', function(){    
     link = jQuery(this).offset();
     link.width = jQuery(this).outerWidth();
     link.href = jQuery(this).attr("href")
