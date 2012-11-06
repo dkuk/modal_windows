@@ -23,3 +23,35 @@
   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;  
 }
+
+#mw_content_loading {
+  display: none;
+  z-index: 101;
+  position: absolute;
+  background: url(../images/mw_load.gif);
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  padding: 0px;
+  padding-left: 16px;
+  padding-top: 2px;  
+}
+
+a.invisible_link{
+  visibility: hidden;
+  border: transparent;
+}
+
+a.invisible_link:hover{
+  visibility: hidden;
+  border: transparent;
+}
+
+a.invisible_link:link{
+  visibility: hidden;
+  border: transparent;
+}
+
+a.invisible_link:visited{
+  visibility: hidden;
+  border: transparent;
+}

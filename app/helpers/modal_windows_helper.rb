@@ -15,6 +15,7 @@ module ModalWindowsHelper
       data = link_to('','#', :class => "icon close-icon close_modal_window", :style => "margin-top:-10px; margin-left:-8px;")+data
       window_class = "permanent_modal_window"
     end
+
     html = content_tag(:div, data, :id => "modal-#{t.to_i}-#{t.nsec}", :class => window_class)
     html << link_to( text, context, html_options, *parameters_for_method_reference )
 
