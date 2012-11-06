@@ -30,22 +30,20 @@ jQuery(document).ready(function(){
     }
 
     cur_window.show();
+    cur_window.trigger('modal_window_shown');
     return false;
   })
 
 
   jQuery("div.modal_window").mouseleave(function(){
     jQuery(this).hide();
+    jQuery(this).trigger('modal_window_hidden');
   })
-
-
-  // jQuery("div.modal_window").click(function(){
-  //   return false;
-  // })
 
 
   jQuery("a.close_modal_window").click(function(){
     jQuery(this).parent().hide();
+    jQuery(this).parent().trigger('modal_window_hidden');
   })
 
 
@@ -53,7 +51,7 @@ jQuery(document).ready(function(){
 
 });
 
-jQuery(window).click(function (event){
+jQuery(document.body).on('click', function (event){
   if( !jQuery(event.target).hasClass("modal_window") && jQuery(event.target).parents("div.modal_window").length == 0){
     jQuery("div.modal_window").hide()
   }
