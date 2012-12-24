@@ -4,7 +4,7 @@ module ModalWindowsHelper
     t = Time.now
 
     opts = {:class => "in_link link_to_modal", :id => "#{t.to_i}-#{t.nsec}"}
-    html_options = html_options.nil? ? opts : (html_options.merge(opts))
+    html_options = html_options.nil? ? opts : (html_options.merge(opts)){|key, oldval, newval| [newval.to_s,oldval.to_s].join(" ") })
     data = ''
     unless context.is_a? Hash 
       data = context
