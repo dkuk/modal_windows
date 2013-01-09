@@ -72,7 +72,13 @@ function show_modal(id) {
   }
 
   if( jQuery(document).width() >= cur_window.outerWidth()+link.left+link.width+margin) {
-    cur_window.css("left", link.left+link.width+margin);
+    if ( jQuery("#"+id).hasClass("left-preffered") && cur_window.outerWidth() < link.left) {
+      // try to display as preffered
+      cur_window.css("left", link.left-margin-cur_window.outerWidth());
+    }
+    else {
+      cur_window.css("left", link.left+link.width+margin);
+    }
   }
   else {
     cur_window.css("left", link.left-margin-cur_window.outerWidth()); 
