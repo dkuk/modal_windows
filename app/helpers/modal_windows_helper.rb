@@ -8,7 +8,7 @@ module ModalWindowsHelper
 
     context = '#' unless context.is_a?(String) || context.is_a?(Hash)
     data = ''
-    if html_options.has_key?('data-static-content')
+    if html_options.has_key?(:class) && html_options[:class].include?('static_content_only')
       data = context
       context = '#'
     end
