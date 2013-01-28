@@ -7,8 +7,13 @@ module ModalWindowsHelper
     html_options = html_options.nil? ? opts : (html_options.merge(opts){|key, oldval, newval| [newval.to_s,oldval.to_s].join(" ") })
 
     context = '#' unless context.is_a?(String) || context.is_a?(Hash)
+    data = ''
+    if html_options.has_key?('data-static-content')
+      data = context
+      context = '#'
+    end
 
-    html = content_tag(:div, '', :id => "modal-#{t.to_i}-#{t.nsec}", :class => "modal_window")
+    html = content_tag(:div, data, :id => "modal-#{t.to_i}-#{t.nsec}", :class => "modal_window")
     html << link_to( text, context, html_options, *parameters_for_method_reference )
 
     html.html_safe
