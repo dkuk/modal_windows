@@ -28,9 +28,11 @@ jQuery(document).ready(function(){
   });
 
 
-  jQuery("div.modal_window").mouseleave(function(){
-    jQuery(this).hide();
-    jQuery(this).trigger('modal_window_hidden');
+  jQuery("div.modal_window").mouseleave(function(evt){
+    if (evt.target.nodeName.toLowerCase() !== "select") {
+      jQuery(this).hide();
+      jQuery(this).trigger('modal_window_hidden');
+    }
   })
 
 
