@@ -8,12 +8,17 @@ module ModalWindowsHelper
 
     context = '#' unless context.is_a?(String) || context.is_a?(Hash)
     data = ''
+    css = ''
     if html_options.has_key?(:class) && html_options[:class].include?('static_content_only')
       data = context
       context = '#'
     end
 
-    html = content_tag(:div, data, :id => "modal-#{t.to_i}-#{t.nsec}", :class => "modal_window")
+    if html_options.has_key?(:class) && html_options[:class].include?('click_out')
+      css = 'click_out'
+    end    
+
+    html = content_tag(:div, data, :id => "modal-#{t.to_i}-#{t.nsec}", :class => "modal_window #{css}")
     html << link_to( text, context, html_options, *parameters_for_method_reference )
 
     html.html_safe

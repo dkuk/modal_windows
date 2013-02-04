@@ -29,7 +29,13 @@ jQuery(document).ready(function(){
 
 
   jQuery("div.modal_window").mouseleave(function(evt){
-    if (evt.target.nodeName.toLowerCase() !== "select") {
+    var mw_div = $(evt.target)
+
+    if (!mw_div.hasClass('modal_window')){
+      mw_div = $(evt.target).parents(".modal_window")
+    }
+
+    if (evt.target.nodeName.toLowerCase() !== "select" && !mw_div.hasClass("click_out")) {
       jQuery(this).hide();
       jQuery(this).trigger('modal_window_hidden');
     }
@@ -61,11 +67,11 @@ function show_modal(id) {
 
   link = jQuery('#'+id).offset();
   link.width = jQuery('#'+id).outerWidth();
+  link.height = jQuery('#'+id).outerHeight();
 
   cur_window = jQuery("#modal-"+id);
   margin = 5;
-
-  cur_window.css("top", link.top);
+  
 
   if ( (jQuery(document).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
     borders_w = cur_window.outerWidth()-cur_window.width()
@@ -84,6 +90,16 @@ function show_modal(id) {
   }
   else {
     cur_window.css("left", link.left-margin-cur_window.outerWidth()); 
+  }
+
+  // vertical position
+  cur_window.css("top", link.top);
+
+  if ( jQuery("#"+id).hasClass("top-preffered") || jQuery(document).height() < link.top+cur_window.outerHeight()-link.height) { // && cur_window.outerHeight() < link.top+link.height) {
+    // try to display as preffered
+    if (cur_window.outerHeight() < link.top+link.height) {
+      cur_window.css("top", link.top+link.height-cur_window.outerHeight());
+    }
   }
 
   cur_window.show();
