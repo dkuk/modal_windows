@@ -27,8 +27,7 @@ jQuery(document).ready(function(){
     }
   });
 
-
-  jQuery("div.modal_window").mouseleave(function(evt){
+  jQuery(document.body).on('mouseleave', "div.modal_window", function(evt){
     var mw_div = $(evt.target)
 
     if (!mw_div.hasClass('modal_window')){
@@ -73,13 +72,13 @@ function show_modal(id) {
   margin = 5;
   
 
-  if ( (jQuery(document).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
+  if ( (jQuery(window).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
     borders_w = cur_window.outerWidth()-cur_window.width()
-    new_w = (link.left > jQuery(document).width()-(link.left+link.width+margin*2)) ? link.left-borders_w : jQuery(document).width()-(link.left+link.width+borders_w);
+    new_w = (link.left > jQuery(window).width()-(link.left+link.width+margin*2)) ? link.left-borders_w : jQuery(window).width()-(link.left+link.width+borders_w);
     cur_window.width(new_w-margin*2);
   }
 
-  if( jQuery(document).width() >= cur_window.outerWidth()+link.left+link.width+margin) {
+  if( jQuery(window).width() >= cur_window.outerWidth()+link.left+link.width+margin) {
     if ( jQuery("#"+id).hasClass("left-preffered") && cur_window.outerWidth() < link.left) {
       // try to display as preffered
       cur_window.css("left", link.left-margin-cur_window.outerWidth());
@@ -95,7 +94,7 @@ function show_modal(id) {
   // vertical position
   cur_window.css("top", link.top);
 
-  if ( jQuery("#"+id).hasClass("top-preffered") || jQuery(document).height() < link.top+cur_window.outerHeight()-link.height) { // && cur_window.outerHeight() < link.top+link.height) {
+  if ( jQuery("#"+id).hasClass("top-preffered") || jQuery(window).height() < link.top+cur_window.outerHeight()-link.height) { // && cur_window.outerHeight() < link.top+link.height) {
     // try to display as preffered
     if (cur_window.outerHeight() < link.top+link.height) {
       cur_window.css("top", link.top+link.height-cur_window.outerHeight());
