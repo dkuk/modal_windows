@@ -47,7 +47,15 @@ jQuery(document).ready(function(){
   })
 
 
-  jQuery("div.modal_window, div.permanent_modal_window").insertBefore(jQuery("div").first());
+  // jQuery("div.modal_window, div.permanent_modal_window").insertBefore(jQuery("div").first());
+
+  $(document).ajaxStop(function() {
+    jQuery('a.for_open').trigger('click');
+    jQuery('a.for_open').removeClass('for_open');
+  });
+
+  jQuery('a.for_open').trigger('click');
+  jQuery('a.for_open').removeClass('for_open');
 
   append_loader();
 });
@@ -78,26 +86,24 @@ function show_modal(id) {
     cur_window.width(new_w-margin*2);
   }
 
-  if( jQuery(window).width() >= cur_window.outerWidth()+link.left+link.width+margin) {
-    if ( jQuery("#"+id).hasClass("left-preffered") && cur_window.outerWidth() < link.left) {
-      // try to display as preffered
-      cur_window.css("left", link.left-margin-cur_window.outerWidth());
+  // right from element - is default
+  cur_window.css("left", link.width+margin);
+  
+  if( jQuery("#"+id).hasClass("left-preffered") || jQuery(window).width() < cur_window.outerWidth()+link.left+link.width+margin) {
+    // try to display left if preffered left or no space at right
+    if ( cur_window.outerWidth() < link.left) {      
+      cur_window.css("left", 0-margin-cur_window.outerWidth());
     }
-    else {
-      cur_window.css("left", link.left+link.width+margin);
-    }
-  }
-  else {
-    cur_window.css("left", link.left-margin-cur_window.outerWidth()); 
   }
 
-  // vertical position
-  cur_window.css("top", link.top);
+
+  // vertical position - default down 
+  cur_window.css("top", 0);
 
   if ( jQuery("#"+id).hasClass("top-preffered") || jQuery(window).height() < link.top+cur_window.outerHeight()-link.height) { // && cur_window.outerHeight() < link.top+link.height) {
-    // try to display as preffered
+    // try to display as preffered no space bottom or top-preffered and
     if (cur_window.outerHeight() < link.top+link.height) {
-      cur_window.css("top", link.top+link.height-cur_window.outerHeight());
+      cur_window.css("top", link.height-cur_window.outerHeight());
     }
   }
 
