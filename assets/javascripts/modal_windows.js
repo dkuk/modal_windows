@@ -5,6 +5,8 @@ jQuery(document).ready(function(){
     link = jQuery(this).offset();
     cur_window = jQuery("#modal-"+id);
 
+    cur_window.prependTo(document.body);
+
     jQuery("div.modal_window").hide();
 
     if ( (cur_window.text() != "" || cur_window.hasClass("permanent_modal_window")) && !jQuery(this).hasClass("refreshable") ){
@@ -28,10 +30,10 @@ jQuery(document).ready(function(){
   });
 
   jQuery(document.body).on('mouseleave', "div.modal_window", function(evt){
-    var mw_div = $(evt.target)
+    var mw_div = jQuery(evt.target)
 
     if (!mw_div.hasClass('modal_window')){
-      mw_div = $(evt.target).parents(".modal_window")
+      mw_div = jQuery(evt.target).parents(".modal_window")
     }
 
     if (evt.target.nodeName.toLowerCase() !== "select" && !mw_div.hasClass("click_out")) {
@@ -50,10 +52,18 @@ jQuery(document).ready(function(){
   // jQuery("div.modal_window, div.permanent_modal_window").insertBefore(jQuery("div").first());
 
   $(document).ajaxStop(function() {
+    // destroy orphans windows (who has no parent link)
+    jQuery("body > div.modal_window").each(function(){
+      if ( jQuery("#"+jQuery(this).attr('id')).length == 0 ) {
+        jQuery(this).remove();
+      }
+    });
+    // open windows which was loaded via ajax
     jQuery('a.for_open').trigger('click');
     jQuery('a.for_open').removeClass('for_open');
   });
 
+  // open windows once on first page load
   jQuery('a.for_open').trigger('click');
   jQuery('a.for_open').removeClass('for_open');
 
@@ -72,38 +82,44 @@ function show_modal(id) {
   jQuery("#"+id).removeClass("invisible_link");
   jQuery("#mw_content_loading").hide();
 
-  link = jQuery('#'+id).offset();
+  var link = jQuery('#'+id).offset();
+  link.top = link.top - jQuery(document).scrollTop();
+  link.left = link.left - jQuery(document).scrollLeft();
   link.width = jQuery('#'+id).outerWidth();
   link.height = jQuery('#'+id).outerHeight();
 
-  cur_window = jQuery("#modal-"+id);
-  margin = 5;
+  var cur_window = jQuery("#modal-"+id);
+  var mw_width = cur_window.outerWidth();
+  var mw_height = cur_window.outerHeight();
+  var doc_w = jQuery(window).width();
+  var doc_h = jQuery(window).height();
+  var margin = 5;
   
 
-  if ( (jQuery(window).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
-    borders_w = cur_window.outerWidth()-cur_window.width()
-    new_w = (link.left > jQuery(window).width()-(link.left+link.width+margin*2)) ? link.left-borders_w : jQuery(window).width()-(link.left+link.width+borders_w);
-    cur_window.width(new_w-margin*2);
-  }
+  // if ( (jQuery(window).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
+  //   borders_w = cur_window.outerWidth()-cur_window.width()
+  //   new_w = (link.left > jQuery(window).width()-(link.left+link.width+margin*2)) ? link.left-borders_w : jQuery(window).width()-(link.left+link.width+borders_w);
+  //   cur_window.width(new_w-margin*2);
+  // }
 
   // right from element - is default
-  cur_window.css("left", link.width+margin);
+  cur_window.css("left", link.left+link.width+margin);
   
-  if( jQuery("#"+id).hasClass("left-preffered") || jQuery(window).width() < cur_window.outerWidth()+link.left+link.width+margin) {
+  if( jQuery("#"+id).hasClass("left-preffered") || doc_w < mw_width+link.left+link.width+margin) {
     // try to display left if preffered left or no space at right
-    if ( cur_window.outerWidth() < link.left) {      
-      cur_window.css("left", 0-margin-cur_window.outerWidth());
+    if ( mw_width < link.left) {      
+      cur_window.css("left", link.left-margin-mw_width);
     }
   }
 
 
   // vertical position - default down 
-  cur_window.css("top", 0);
+  cur_window.css("top", link.top);
 
-  if ( jQuery("#"+id).hasClass("top-preffered") || jQuery(window).height() < link.top+cur_window.outerHeight()-link.height) { // && cur_window.outerHeight() < link.top+link.height) {
+  if ( jQuery("#"+id).hasClass("top-preffered") || doc_h < link.top+mw_height-link.height ) { // && cur_window.outerHeight() < link.top+link.height) {
     // try to display as preffered no space bottom or top-preffered and
-    if (cur_window.outerHeight() < link.top+link.height) {
-      cur_window.css("top", link.height-cur_window.outerHeight());
+    if (mw_height < link.top+link.height) {
+      cur_window.css("top", link.top+link.height-mw_height);
     }
   }
 

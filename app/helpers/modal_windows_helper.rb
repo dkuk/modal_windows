@@ -21,7 +21,7 @@ module ModalWindowsHelper
     html = link_to( text, context, html_options, *parameters_for_method_reference )
     html << content_tag(:div, data, :id => "modal-#{t.to_i}-#{t.nsec}", :class => "modal_window #{css}")
 
-    html = content_tag(:div, html, :class => "mw_frame")
+    # html = content_tag(:div, html, :class => "mw_frame")
     html.html_safe
   end
 
@@ -37,7 +37,7 @@ module ModalWindowsHelper
     html = content_tag(:div, data, :id => "modal-#{t.to_i}-#{t.nsec}", :class => "permanent_modal_window")
     html << link_to( text, '#', html_options, *parameters_for_method_reference )
     
-    html = content_tag(:div, html, :class => "mw_frame")
+    # html = content_tag(:div, html, :class => "mw_frame")
     html.html_safe
   end   
 
