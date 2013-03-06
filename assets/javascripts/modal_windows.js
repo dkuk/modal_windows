@@ -103,23 +103,23 @@ function show_modal(id) {
   // }
 
   // right from element - is default
-  cur_window.css("left", link.left+link.width+margin);
+  cur_window.css("left", link.left+link.width+margin+jQuery(document).scrollLeft());
   
   if( jQuery("#"+id).hasClass("left-preffered") || doc_w < mw_width+link.left+link.width+margin) {
     // try to display left if preffered left or no space at right
     if ( mw_width < link.left) {      
-      cur_window.css("left", link.left-margin-mw_width);
+      cur_window.css("left", link.left-margin-mw_width+jQuery(document).scrollLeft());
     }
   }
 
 
   // vertical position - default down 
-  cur_window.css("top", link.top);
+  cur_window.css("top", link.top+jQuery(document).scrollTop());
 
   if ( jQuery("#"+id).hasClass("top-preffered") || doc_h < link.top+mw_height-link.height ) { // && cur_window.outerHeight() < link.top+link.height) {
     // try to display as preffered no space bottom or top-preffered and
     if (mw_height < link.top+link.height) {
-      cur_window.css("top", link.top+link.height-mw_height);
+      cur_window.css("top", link.top+jQuery(document).scrollTop()+link.height-mw_height);
     }
   }
 
