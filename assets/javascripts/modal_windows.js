@@ -54,7 +54,8 @@ jQuery(document).ready(function(){
   $(document).ajaxStop(function() {
     // destroy orphans windows (who has no parent link)
     jQuery("body > div.modal_window").each(function(){
-      if ( jQuery("#"+jQuery(this).attr('id')).length == 0 ) {
+      var ln = jQuery(this).attr('id').split('modal-')[1]      
+      if ( jQuery("#"+ln).length == 0 ) {
         jQuery(this).remove();
       }
     });
