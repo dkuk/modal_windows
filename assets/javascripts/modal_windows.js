@@ -3,9 +3,13 @@ jQuery(document).ready(function(){
   jQuery(document.body).on('click', 'a.link_to_modal', function(){
     id = jQuery(this).attr("id");
     link = jQuery(this).offset();
-    cur_window = jQuery("#modal-"+id);
-
-    cur_window.prependTo(document.body);
+    if (jQuery("#modal-"+id).length == 0){
+      cur_window = jQuery('<div/>', {id: 'modal-'+id, class: 'modal_window'});
+    }
+    else {
+      cur_window = jQuery("#modal-"+id);
+    }
+    cur_window.prependTo(document.body);    
 
     jQuery("div.modal_window").hide();
 
