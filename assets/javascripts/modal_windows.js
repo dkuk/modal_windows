@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 
-  jQuery(document.body).on('click', 'a.link_to_modal', function(){
+  jQuery(document.body).on('click', '.link_to_modal', function(){
     id = jQuery(this).attr("id");
     link = jQuery(this).offset();
     if (jQuery("#modal-"+id).length == 0){
@@ -47,7 +47,7 @@ jQuery(document).ready(function(){
   })
 
 
-  jQuery("a.close_modal_window").click(function(){
+  jQuery(".close_modal_window").click(function(){
     jQuery(this).parent().hide();
     jQuery(this).parent().trigger('modal_window_hidden');
   })
@@ -64,13 +64,13 @@ jQuery(document).ready(function(){
       }
     });
     // open windows which was loaded via ajax
-    jQuery('a.for_open').trigger('click');
-    jQuery('a.for_open').removeClass('for_open');
+    jQuery('.for_open').trigger('click');
+    jQuery('.for_open').removeClass('for_open');
   });
 
   // open windows once on first page load
-  jQuery('a.for_open').trigger('click');
-  jQuery('a.for_open').removeClass('for_open');
+  jQuery('.for_open').trigger('click');
+  jQuery('.for_open').removeClass('for_open');
 
   append_loader();
 });
