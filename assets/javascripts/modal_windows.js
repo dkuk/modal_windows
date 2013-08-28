@@ -4,7 +4,8 @@ jQuery(document).ready(function(){
     id = jQuery(this).attr("id");
     link = jQuery(this).offset();
     if (jQuery("#modal-"+id).length == 0){
-      cur_window = jQuery('<div/>', {id: 'modal-'+id, class: 'modal_window'});
+      click_out_class = $(this).hasClass('click_out') ? ' click_out' : ''
+      cur_window = jQuery('<div/>', {id: 'modal-'+id, class: 'modal_window'+click_out_class});
     }
     else {
       cur_window = jQuery("#modal-"+id);
