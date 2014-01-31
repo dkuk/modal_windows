@@ -14,8 +14,6 @@ Sample:
 ![sample](https://github.com/dkuk/modal_windows/raw/master/screenshots/sample.png "sample")
 ![sample2](https://github.com/dkuk/modal_windows/raw/master/screenshots/sample2.png "sample2")
 
-Plugin also integrates Lightview (http://projects.nickstakenburg.com/lightview) into Redmine. Be awere! Lightview library avalible for free only for non-commercial use.
-Read license please: http://projects.nickstakenburg.com/lightview/license
 
 #### Installation
 To install plugin, go to the folder "plugins" in root directory of Redmine.
