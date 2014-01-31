@@ -10,7 +10,7 @@ jQuery(document).ready(function(){
     else {
       cur_window = jQuery("#modal-"+id);
     }
-    cur_window.prependTo(document.body);    
+    cur_window.prependTo(document.body);
 
     jQuery("div.modal_window").hide();
 
@@ -22,7 +22,7 @@ jQuery(document).ready(function(){
       jQuery("#mw_content_loading").css("left", link.left);
       jQuery("#mw_content_loading").css("top", link.top);
       jQuery("#mw_content_loading").show();
-      cur_window.load(jQuery(this).attr("href"), function(){show_modal(id)});      
+      cur_window.load(jQuery(this).attr("href"), function(){show_modal(id)});
     }
 
     return false;
