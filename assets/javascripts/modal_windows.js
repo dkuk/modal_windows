@@ -14,7 +14,7 @@ jQuery(document).ready(function(){
 
     jQuery("div.modal_window").hide();
 
-    if ( (cur_window.text() != "" || cur_window.hasClass("permanent_modal_window")) && !jQuery(this).hasClass("refreshable") ){
+    if ( (cur_window.text() != "" || cur_window.hasClass("permanent_modal_window") || link.hasClass('static_content_only')) && !jQuery(this).hasClass("refreshable") ){
       show_modal(id);
     }
     else{
@@ -59,7 +59,7 @@ jQuery(document).ready(function(){
   $(document).ajaxStop(function() {
     // destroy orphans windows (who has no parent link)
     jQuery("body > div.modal_window").each(function(){
-      var ln = jQuery(this).attr('id').split('modal-')[1]      
+      var ln = jQuery(this).attr('id').split('modal-')[1]
       if ( jQuery("#"+ln).length == 0 ) {
         jQuery(this).remove();
       }
@@ -100,7 +100,7 @@ function show_modal(id) {
   var doc_w = jQuery(window).width();
   var doc_h = jQuery(window).height();
   var margin = 5;
-  
+
 
   // if ( (jQuery(window).width() < cur_window.outerWidth()+link.left+link.width+margin) && (link.left < margin+cur_window.outerWidth()) ) {
   //   borders_w = cur_window.outerWidth()-cur_window.width()
@@ -110,16 +110,16 @@ function show_modal(id) {
 
   // right from element - is default
   cur_window.css("left", link.left+link.width+margin+jQuery(document).scrollLeft());
-  
+
   if( jQuery("#"+id).hasClass("left-preffered") || doc_w < mw_width+link.left+link.width+margin) {
     // try to display left if preffered left or no space at right
-    if ( mw_width < link.left) {      
+    if ( mw_width < link.left) {
       cur_window.css("left", link.left-margin-mw_width+jQuery(document).scrollLeft());
     }
   }
 
 
-  // vertical position - default down 
+  // vertical position - default down
   cur_window.css("top", link.top+jQuery(document).scrollTop());
 
   if ( jQuery("#"+id).hasClass("top-preffered") || doc_h < link.top+mw_height-link.height ) { // && cur_window.outerHeight() < link.top+link.height) {
